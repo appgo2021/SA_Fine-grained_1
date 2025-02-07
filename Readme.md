@@ -1,112 +1,65 @@
-# Sentiment Analysis Rules for Burmese Music Comments  
+# Sentiment Analysis of Burmese Music Comments
 
-## 📌 Positive Sentiment Rules  
+## Project Overview
 
-### 1️⃣ General Praise / Admiration / Encouraging  
-Comments expressing admiration or appreciation for the song or artist.  
+This project focuses on sentiment analysis of Burmese music comments using MyanBERTa and mBERT. The repository contains code, datasets, and models used in training and evaluating the sentiment analysis model.
 
-**Examples:**  
-- "သီချင်းက တကယ်အမိုက်စားတယ်။" (This song is truly amazing.)  
-- "အကယ်ဒမီတစ်ဆုတော့ ဒီသီချင်းကိုပေးသင့်တယ်။" (This song deserves an award.)  
+## Folder Structure
 
-### 2️⃣ Emotional Response (Positive Emotion)  
-Positive emotions evoked by the song.  
+### `code_google_colab`
 
-**Examples:**  
-- "ဒီသီချင်းနားထောင်ရင်း ခံစားမှုတွေအားလုံးပြန်မိသလိုပဲ။" (Listening to this song brought back all my emotions.)  
-- "သီချင်းရဲ့အာရုံခံစားမှုက မရောနိုင်ဘူး။" (The emotions in this song are unmatched.)  
+This folder contains the code used to train the model and filter comments, as well as to create CSV files. The scripts follow a step-wise naming convention:
 
-### 3️⃣ Appreciation for Lyrics / Music  
-Comments praising the quality of the lyrics, vocals, or music.  
+- `_s1`: Initial processing and filtering of comments.
+- `_s2`: Model training.
+- `_s3`: Model evaluation and testing.
+- `comment_filtered.py`: Used in various steps, so no step suffix is added.
 
-**Examples:**  
-- "လက်ရာအရမ်းလန်းတယ်၊ သီချင်းစာသားလည်း အနက်ဉာဏ်နက်တယ်။" (A masterpiece, and the lyrics are so meaningful.)  
-- "ဒီသီချင်းရဲ့ဂီတကနားထောင်လို့အရမ်းချိုမြိန်တယ်။" (The music in this song is so pleasant to listen to.)  
+### `csv`
 
-### 4️⃣ Positive Experience with the Song (Non-Negative)  
-Sharing how the song positively impacted their life.  
+This folder contains datasets used for training and evaluation.
 
-**Examples:**  
-- "ဒီသီချင်းက နောက်ဆုံးအချိန်ကာလမှာ နေ့ရက်တွေ ဖြတ်သန်းဖို့ အခန်းကဏ္ဍတစ်ခုလိုခဲ့တယ်။" (This song helped me get through tough times.)  
-- "ဒီသီချင်းနဲ့ကြီးပြင်းလာခဲ့တာမို့ ကျွန်တော်အတွက် အမှတ်တရတယ်။" (I grew up with this song, so it’s memorable for me.)  
+- `1st_model_comments/`: Stores three CSV files that were manually differentiated and used for training `model_1`. Though not crucial, they are kept as a record.
+- `doublej_filtered_comments_with_id.csv`: Generated after running `_s1`.
+- `filtered_data.csv`: Manually labeled dataset (positive, negative, neutral) based on `Rules.ipynb` and then this datasets is used in `_s2`.
+- `Predicted1000.csv`:  Generated after running `_s3`. `Yellow` and `Red`  entries are manually highlighted as they contradict `Rules`.
 
-### 5️⃣ Excitement / Positive Exclamation  
-Intense positive emotions or excitement.  
+### `models`
 
-**Examples:**  
-- "အဝါထက်လင်းတယ် ဒီသီချင်း!" (This song is beyond amazing!)  
-- "ဒီလိုအမိုက်စားသီချင်းကို ရင်ဘတ်ထဲမှာထားပြီး နားထောင်ရတာ မင်းလဲလုပ်ကြည့်လိုက်ပါ။" (Keep this amazing song in your heart and listen to it—you should try!)  
+Contains trained sentiment analysis models:
 
----
+- `model1/` (model trained on about 400 comments)
+- `model2/` (model trained on about 5000 comments)
 
-## ❌ Negative Sentiment Rules  
+These models are uploaded to Google Drive and accessed via Google Colab for execution.
 
-### 1️⃣ Criticism / Dislike for the Song or Artist  
-Expressing dissatisfaction with the song or artist.  
+### `SA_webapp`
 
-**Examples:**  
-- "သီချင်းက ပုံမှန်ပဲ၊ ထူးထူးဆန်းဆန်းမဟုတ်ဘူး။" (The song is just average, nothing special.)  
-- "ဒီသီချင်းနားထောင်ရင်း ပင်ပန်းတယ်။" (Listening to this song is exhausting.)  
+This folder includes two subfolders, each corresponding to a different trained model. The code structure remains the same, but both models are included for comparative purposes.
 
-### 2️⃣ Emotional Response (Negative Emotion)  
-Expressing sadness or frustration due to the song.  
+## Running the Web Application
 
-**Examples:**  
-- "ဒီသီချင်းက နောင်တတွေကို ပြန်ဖြစ်စေတယ်။" (This song reminds me of my regrets.)  
-- "နားထောင်ရင်း ပူဆွေးစရာကို ပြန်ဖြစ်စေတယ်။" (It makes me dwell on sad things.)  
+To test the model using the web API in VS Code, follow these steps:
 
-### 3️⃣ Negative Experience with the Song  
-Sharing how the song negatively impacted them.  
+1. Open the respective main folder:
+   - `SA_400_1/` (model1_app)
+   - `SA_5000_2/` (model2_app)
 
-**Examples:**  
-- "သီချင်းက အသံမကောင်းဘူး၊ စိတ်ညစ်စရာကောင်းတယ်။" (The song sounds bad, it’s frustrating to listen to.)  
-- "ဒီလိုသီချင်းတွေ နောက်ထပ် မထွက်နဲ့တော့။" (Don’t release songs like this again.)  
+2. Open a terminal and activate the virtual environment:
+   ```sh
+   source venv/bin/activate
 
-### 4️⃣ Criticism of the Artist (Personal)  
-Negative comments about the artist's character or personal life.  
+3. To install the required dependencies, run the following command:
+   ```sh
+   pip install -r requirements.txt
 
-**Examples:**  
-- "ဒီသီချင်းကတောင် သီချင်းရေးတဲ့သူ့ရဲ့ဘဝပုံစံကို ပြန်ပြနေရတယ်။" (Even this song reflects how messy their life is.)  
-- "အဆိုတော်ဟာ ကျော်ကြားဖို့ပဲ အတွေးတွေထားပြီး သီချင်းနဲ့ကိုမပတ်သက်ဘူး။" (The singer only cares about fame and nothing about their songs.)  
-
-### 5️⃣ Sarcasm / Mocking / Inappropriate Comments  
-Sarcastic or mocking comments that belittle the song or artist.  
-
-**Examples:**  
-- "ဟိုဦးဖြူသီချင်းတောင် ဒီထက်အဆင်ပြေတယ်။" (Even that old song is better than this.)  
-- "မိမိသီချင်းဆိုရင် တော်ပြီလို့ သင့်ရင်ထဲတောင်ထင်မယ့်ပုံ။" (You’d think your own song is perfect, wouldn’t you?)  
-
----
-
-## ⚖️ Neutral Sentiment Rules  
-
-### 1️⃣ Factual Information  
-Providing factual details without opinions or emotions.  
-
-**Examples:**  
-- "ဒီသီချင်းက ၂၀၂၃ ဇန်နဝါရီမှာ ထွက်ခဲ့တယ်။" (This song was released in January 2023.)  
-- "သီချင်းကို YouTube မှာ ၁သန်းကြည့်ပြီးပြီ။" (This song has 1 million views on YouTube.)  
-
-### 2️⃣ Descriptive Comments (No Emotion)  
-Describing features of the song or artist without opinions.  
-
-**Examples:**  
-- "သီချင်းက သုံးမိနစ်လောက်ရှိတယ်။" (The song is about three minutes long.)  
-- "အဆိုတော်က စိန်ထုတ်ဝတ်ပြီး MV မှာ ပါတယ်။" (The singer is wearing jewelry in the MV.)  
-
-### 3️⃣ Mixed Emotion or Balanced Opinion  
-Comments with both positive and negative sentiments.  
-
-**Examples:**  
-- "သီချင်းစာသားက တော်တယ်၊ ဒါပေမဲ့ သံစဉ်က မထင်ထားသလို။" (The lyrics are good, but the melody isn’t as expected.)  
-- "အာဘော်ကောင်းပေမဲ့ ကြားနေရတဲ့အသံ မဆီလျော်ဘူး။" (The performance is good, but the sound isn’t appropriate.)  
-
-### 4️⃣ Off-Topic Comments  
-Irrelevant or off-topic comments.  
-
-**Examples:**  
-- "ဒီလို MV မှာ သူ့ရဲ့ဝတ်စုံ ဘယ်မှ ဝတ်မတော်ဘူး။" (Her outfit doesn’t suit her, unrelated to the song.)  
-- "ဒီအဆိုတော်ကြီးက နောက်ဆုံးဘယ်သီချင်းထွက်ထားသလဲ?" (What’s the artist’s last song?)  
-
----
-
+4. Run FastAPI server:
+   ```sh
+   uvicorn backend.app:app --reload
+   
+5. After hosting backend to test with curl:
+   ```sh  
+    curl -X 'POST' \
+    'http://localhost:8000/predict/' \
+    -H 'Content-Type: application/json' \
+    -d '{"text": "အရမ်း ကြိုက်တယ် အဲဒီသီချင်"}'
